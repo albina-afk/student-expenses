@@ -92,14 +92,14 @@ function analyze() {
     let entertainmentVal = Number(entertainment.value);
     let otherVal = Number(other.value);
 
-    // Проверка корректности данных
+    // Проверка: все поля заполнены
     if (
         foodVal <= 0 ||
         transportVal <= 0 ||
         entertainmentVal <= 0 ||
         otherVal <= 0
     ) {
-        alert("Пожалуйста, заполните все поля положительными значениями");
+        alert("Пожалуйста, заполните все поля корректными значениями");
         return;
     }
 
@@ -121,9 +121,7 @@ function analyze() {
         "Прочее: " + percentages[3] + "%<br>" +
         "Прогноз расходов на следующий месяц: " + sum + " тг";
 
-    if (chart) {
-        chart.destroy();
-    }
+    if (chart) chart.destroy();
 
     chart = new Chart(expenseChart, {
         type: 'pie',
@@ -150,3 +148,4 @@ function analyze() {
 
 </body>
 </html>
+
