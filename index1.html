@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Расходы студента</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            margin: 0;
+        }
+        header {
+            background: #34495e;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        section {
+            background: white;
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+        }
+        button {
+            background: #2ecc71;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        canvas {
+            margin-top: 15px;
+        }
+        .result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Анализ и прогнозирование расходов студента</h1>
+    <p>Учебное веб-приложение</p>
+</header>
+
+<section>
+    <h3>Введите расходы за месяц (тг)</h3>
+    <input type="number" id="food" placeholder="Питание">
+    <input type="number" id="transport" placeholder="Транспорт">
+    <input type="number" id="entertainment" placeholder="Развлечения">
+    <input type="number" id="other" placeholder="Прочее">
+    <button onclick="analyze()">Проанализировать</button>
+
+    <div class="result" id="summary"></div>
+    <canvas id="expenseChart"></canvas>
+</section>
+
+<section>
+    <h3>О проекте</h3>
+    <p>
+        Веб-приложение предназначено для анализа структуры расходов студента
+        и прогнозирования общих затрат на следующий месяц.
+    </p>
+</section>
+
+<script>
+let chart;
+
+function analyze() {
+    let data = [
+        Number(food.value),
+        Number(transport.value),
+        Number(entertainment.value),
+        Number(other.value)
+    ];
+
+    let labels = ["Питание", "Транспорт", "Развлечения", "Прочее"];
+    let sum = data.reduce((a, b) => a + b, 0);
+    let avg = sum;
+
+    summary.innerHTML =
+        "Общие расходы: " + sum + " тг<br>" +
+        "Прогноз расходов на следующий месяц: " + avg + " тг";
+
+    if (chart) chart.destroy();
+
+    chart = new Chart(expenseChart, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data
+            }]
+        }
+    });
+}
+</script>
+
+</body>
+</html>
